@@ -1,4 +1,17 @@
 # group_vars/all.yml
 # Variables visible to all nodes
 ---
-
+port: 8080
+prefix: "/"
+jenkins_user: admin
+jenkins_password: "$(cat /var/lib/jenkins/secrets/initialAdminPassword)"
+jenkins_new_user: jenkins
+jenkins_new_user_pass: password
+jenkins_dest: /opt/jenkins
+jenkins_lib: /var/lib/jenkins
+jenkins:
+  xmls_files: '{{jenkins_dest}}/config/xmls/'
+  cli_dest: '{{ jenkins_dest }}/jenkins-cli.jar' # Jenkins CLI destination
+  updates_dest: '{{ jenkins_dest }}/updates_jenkins.json' # Jenkins updates file
+jenkins_api_url: "http://localhost:{{ port }}{{ prefix }}"
+jenkins_cli_cmd: "java -jar {{ jenkins.cli_dest }} -s {{ jenkins_api_url }}"

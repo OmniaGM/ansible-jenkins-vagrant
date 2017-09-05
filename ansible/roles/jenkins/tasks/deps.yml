@@ -1,0 +1,25 @@
+---
+
+- name: install git
+  yum: name=git state=latest
+
+- name: install graphviz
+  yum: name=graphviz state=latest
+
+- name: install initscripts
+  yum: name=initscripts state=latest
+
+- name: install wget
+  yum: name=wget state=latest
+
+- name: install java {{java_version}}
+  yum: name=java-{{java_version}}-openjdk-devel state=latest
+
+- name: Register JAVA_HOME env variable
+  lineinfile: dest=/etc/profile regexp="^(export JAVA_HOME=)" state=present line="export JAVA_HOME=/usr/lib/jvm/jre-{{java_version}}-openjdk"
+
+- name: Register JRE_HOME_ENV env variable
+  lineinfile: dest=/etc/profile regexp="^(export JRE_HOME_ENV=)" state=present line="export JRE_HOME_ENV=/usr/lib/jvm/jre"
+
+- name: Run source /etc/profile
+  shell: source /etc/profile

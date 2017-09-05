@@ -1,0 +1,7 @@
+---
+- include: deps.yml
+- include: install.yml
+- include: cli.yml
+- include: add_new_user.yml
+- include: plugins.yml
+- include: sudoers.yml

@@ -1,0 +1,4 @@
+---
+
+- name: "create sudoers file for jenkins"
+  copy: src=sudoer dest=/etc/sudoers.d/jenkins mode=0600
