@@ -1,0 +1,8 @@
+---
+source: "./"
+templates_path: "{{source}}templates/"
+pipelines_xmls: "{{ jenkins.xmls_files}}pipelines/"
+jenkins_jjb: /opt/jenkins-job-builder
+jjb_cli: "jenkins-jobs --conf"
+pipelines:
+  - { name: provisioning, first_job: jenkins-provision}

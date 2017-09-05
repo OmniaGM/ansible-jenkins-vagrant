@@ -1,0 +1,12 @@
+---
+- name: "Create JJB jobs dir : {{ jenkins_jjb }}/jobs"
+  file: path="{{ jenkins_jjb }}/jobs" state=directory
+
+- name: "Copy jobs dir"
+  copy: src=jobs dest={{ jenkins_jjb }} directory_mode=yes
+
+- name: Test JJB Config
+  shell: ' {{jjb_cli}} {{ jenkins_jjb }}/config/config.ini test {{ jenkins_jjb }}/jobs/'
+
+- name: Update JJB Config
+  shell: ' {{jjb_cli}} {{ jenkins_jjb }}/config/config.ini update {{ jenkins_jjb }}/jobs/'

@@ -1,0 +1,24 @@
+<au.com.centrumsystems.hudson.plugin.buildpipeline.BuildPipelineView>
+    <name>{{item.name}}</name>
+    <filterExecutors>false</filterExecutors>
+    <filterQueue>false</filterQueue>
+    <properties class="hudson.model.View$PropertyList"/>
+    <gridBuilder class="au.com.centrumsystems.hudson.plugin.buildpipeline.DownstreamProjectGridBuilder">
+        <firstJob>{{item.first_job}}</firstJob>
+        <firstJobLink/>
+    </gridBuilder>
+    <noOfDisplayedBuilds>50</noOfDisplayedBuilds>
+    <buildViewTitle/>
+    <consoleOutputLinkStyle>Lightbox</consoleOutputLinkStyle>
+    <cssUrl/>
+    <triggerOnlyLatestJob>false</triggerOnlyLatestJob>
+    <alwaysAllowManualTrigger>false</alwaysAllowManualTrigger>
+    <showPipelineParameters>false</showPipelineParameters>
+    <rowHeaders class="au.com.centrumsystems.hudson.plugin.buildpipeline.extension.SimpleRowHeader"/>
+    <showPipelineParametersInHeaders>false</showPipelineParametersInHeaders>
+    <columnHeaders class="au.com.centrumsystems.hudson.plugin.buildpipeline.extension.NullColumnHeader"/>
+    <buildCard class="au.com.centrumsystems.hudson.plugin.buildpipeline.extension.StandardBuildCard"/>
+    <startsWithParameters>false</startsWithParameters>
+    <refreshFrequency>3</refreshFrequency>
+    <showPipelineDefinitionHeader>false</showPipelineDefinitionHeader>
+</au.com.centrumsystems.hudson.plugin.buildpipeline.BuildPipelineView>

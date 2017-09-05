@@ -1,0 +1,20 @@
+- job:
+   name: jenkins-provision
+   description: 'Provision Jenkins server. Do not edit this job through the web!'
+   project-type: freestyle
+   block-downstream: false
+   scm:
+   - git:
+       url: https://github.com/OmniaGM/ansible-jenkins-vagrant.git
+       branches:
+         - master
+       skip-tag: true
+   triggers:
+     - pollscm:
+         cron: "H/2 * * * *"
+   builders:
+     - shell: ./scripts/run-playbook-locally.sh
+   wrappers:
+     - workspace-cleanup
+     - ansicolor
+     - timestamps

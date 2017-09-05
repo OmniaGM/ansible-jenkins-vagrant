@@ -1,0 +1,11 @@
+---
+- name: Create pipelines folder
+  file: path="{{pipelines_xmls}}" state=directory
+
+- name: Create views xmls files
+  template: src={{templates_path}}pipeline_view_tmp.xml.j2 dest={{pipelines_xmls}}{{ item.name }}.xml
+  with_items: "{{ pipelines }}"
+
+- name: Add pipelines views
+  shell: for f in $(ls -d -1 {{pipelines_xmls}}**); do cat $f | {{jenkins_cli_cmd}} create-view --username {{jenkins_user}} --password {{jenkins_password}}; done
+  ignore_errors: yes

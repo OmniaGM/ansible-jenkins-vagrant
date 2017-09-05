@@ -1,0 +1,18 @@
+- pip:
+    name: jenkins-job-builder
+    version: 2.0.0.0b2
+
+- name: "Create Jenkins Job Builder : {{ jenkins_jjb }}"
+  file: path={{ jenkins_jjb }} state=directory
+
+- name: "Create JJB config dir : {{ jenkins_jjb }}/config"
+  file: path="{{ jenkins_jjb }}/config" state=directory
+
+- name: Get Jenkins admin password
+  shell: echo {{jenkins_password}}
+  register: password
+
+- name: Set jenkins user in JJB config file
+  template: src={{templates_path}}jjb_config.ini.j2 dest={{ jenkins_jjb }}/config/config.ini
+  with_items:
+    - {pass: '{{password.stdout}}'}

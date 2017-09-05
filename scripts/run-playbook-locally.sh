@@ -27,7 +27,7 @@ readonly red='\e[0;31m'
 readonly yellow='\e[0;33m'
 readonly cyan='\e[0;36m'
 
-readonly playbook=/vagrant/ansible/site.yml
+readonly playbook=/vagrant/ansible/jenkins.yml
 readonly inventory=/vagrant/scripts/inventory.py
 
 #

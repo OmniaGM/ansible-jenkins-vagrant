@@ -1,0 +1,4 @@
+---
+- include: jjb.yml
+- include: jobs.yml
+- include: views.yml
