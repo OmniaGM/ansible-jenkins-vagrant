@@ -20,3 +20,5 @@ test/bats/
 
 # Ignore role directories from Ansible Galaxy (user.role notation)
 ansible/roles/*.*
+
+*.retry

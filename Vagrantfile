@@ -9,7 +9,7 @@ require 'rbconfig'
 require 'yaml'
 
 # Set your default base box here
-DEFAULT_BASE_BOX = 'bertvv/centos72'
+DEFAULT_BASE_BOX = 'centos/7'
 
 VAGRANTFILE_API_VERSION = '2'
 PROJECT_NAME = '/' + File.basename(Dir.getwd)
@@ -31,6 +31,7 @@ def provision_ansible(config, host)
   else
     # Provisioning configuration for Ansible (for Mac/Linux hosts).
     config.vm.provision 'ansible' do |ansible|
+      ansible.verbose = "v"
       ansible.playbook = host.key?('playbook') ?
           "ansible/#{host['playbook']}" :
           "ansible/site.yml"
@@ -85,10 +86,10 @@ end
 
 # Set options for shell provisioners to be run always. If you choose to include
 # it you have to add a cmd variable with the command as data.
-# 
+#
 # Use case: start symfony dev-server
 #
-# example: 
+# example:
 # shell_always:
 #   - cmd: php /srv/google-dev/bin/console server:start 192.168.52.25:8080 --force
 def shell_provisioners_always(vm, host)
@@ -106,16 +107,15 @@ end
 
 # Adds forwarded ports to your vagrant machine so they are available from your phone
 #
-# example: 
+# example:
 #  forwarded_ports:
 #    - guest: 88
 #      host: 8080
 def forwarded_ports(vm, host)
   if host.has_key?('forwarded_ports')
     ports = host['forwarded_ports']
-
     ports.each do |port|
-      vm.network "forwarded_port", guest: port['guest'], host: port['host']
+      vm.network :forwarded_port, guest: port['guest'], host: port['host']
     end
   end
 end
@@ -123,7 +123,6 @@ end
 # }}}
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.ssh.insert_key = false
   hosts.each do |host|
     config.vm.define host['name'] do |node|
       node.vm.box = host['box'] ||= DEFAULT_BASE_BOX
@@ -139,6 +138,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         # WARNING: if the name of the current directory is the same as the
         # host name, this will fail.
         vb.customize ['modifyvm', :id, '--groups', PROJECT_NAME]
+        vb.memory = "1048"
       end
       provision_ansible(config, host)
     end
